@@ -4,7 +4,8 @@
 
 ### 👾Notação Ponto
 
-Criar atributos públicos em uma função usando this.variável
+Você pode criar atributos e funções públicas usando **this.** o nome do atributo/função.
+
 ```javascript
 function Obj(nome){
     this.nome = nome
@@ -43,25 +44,42 @@ console.log(colors); // [‘red’, ‘green’, ‘blue’]
 
 ### 👾Tratatamento de erro (try/catch/throw)
 ```javascript
-    function callAPI(args){
-        try{
-            console.log(args)
-        }catch(e){
-            if (true) {
-                // instruções para tratar exceções caso vdd
-            } else {
-                // não pode tratar esta exceção então relança
-                throw e;
-            }
-        }
+function tratarErroLancar(err){
+    // throw new Error("...?");
+    // throw 10
+    // throw true
+    // throw "Mensagem de Erro"
+    throw {
+        nome: err.name,
+        msg: err.message,
+        date: new Date,
     }
+}
+
+function callAPI(args){
+    try{
+        console.log(args.url.toLowerCase())
+    }catch(e){
+        if (false) {
+            // instruções para tratar exceções caso vdd
+            console.log(false)
+        } else {
+            // não pode tratar esta exceção então relança
+            tratarErroLancar(e)
+        }
+    } finally{
+        console.log("Rodou com erro ou funcionando!")
+    }
+}
+
+let obj = { link: "http://exemplo.com" }
+callAPI(obj)
 ```
 
 ---
+---
 
 ## Funções
-
-### 💫Cidadão de Primeira Linha
 
 ### 💫Parâmetro Padrão
 Os parâmetros predefinidos de uma função permitem que parâmetros regulares sejam inicializados com com valores iniciais caso undefined ou nenhum valor seja passado.
@@ -76,10 +94,14 @@ console.log(soma(0,0,0)) // 0
 ```
 
 ### 💫This
-> this variável, função bind, com arrow function
+A palavra-chave **this** se refere ao objeto ao qual pertence e tem valores diferentes dependendo de onde é usado:
 
-A função bind() cria uma nova função vinculada (bound function). Uma função vinculada é um objeto de função exótico (termo da ECMAScript 2015) que encapsula o objeto de função original. Chamar uma função vinculada geralmente resulta na execução de sua função encapsulada.
-
+* Em um método, isso se refere ao objeto proprietário.
+* Sozinho, isso se refere ao objeto global.
+* Em uma função, isso se refere ao objeto global.
+* Em uma função, no modo estrito, isso é *undefined*.
+* Em um evento, isso se refere ao elemento que recebeu o evento.
+* Métodos como bind(), call() e apply() podem referir isso a qualquer objeto.
 
 
 ```javascript
@@ -107,23 +129,75 @@ new Pessoa // NaN, NaN, NaN...
 ```
 
 ### 💫Arrow functions
+Uma expressão arrow function possui uma sintaxe mais curta quando comparada a uma expressão de função e tem um **this** associado ao contexto no qual a função foi escrita.
+
+*É melhor aplicada para funções que não sejam métodos, e elas **não** podem ser usadas como construtoras (constructors).*
 
 ```javascript
-var f = () => { 'use strict'; return this };
-f() === window; // ou o objeto global
+let dobro = function(a){
+    return 2 * a
+}
+
+dobro = (a) => {
+    return 2 * a
+}
+
+dobro = a => 2 * a
 ```
 
 ### 💫Funções Construtoras
+Funções contrutoras são moldes de objetos que você pode criar a partir dessa função. 
+
+```javascript
+function Carro(veloMax = 200, delta = 5){
+    //atributo privado
+    let veloAtual = 0
+
+    //método público
+    this.acelerar = function(){
+        if(veloAtual + delta <= veloMax){
+            veloAtual += delta
+        }else{
+            veloAtual = veloMax
+        }
+    }
+
+    //método público
+    this.getVeloAtual =  function(){
+        return veloAtual
+    }
+}
+
+const uno =  new Carro // pega os valores padrões
+uno.acelerar()
+console.log(uno.getVeloAtual())
+
+const ferrari =  new Carro(350, 20)
+ferrari.acelerar()
+console.log(ferrari.getVeloAtual())
+```
 
 ### 💫Função Factory
+Uma função de factory é qualquer função que não é uma classe ou construtor que retorna um objeto (presumivelmente novo). Em JavaScript, qualquer função pode retornar um objeto. Quando isso acontece sem a palavra-chave **new**, é uma função de factory.
 
-### 💫Classe vs Função Factory
+```javascript
+function criarProduto(nome, preco){
+    return {
+        nome,
+        preco,
+        desconto:0.2
+    }
+}
+
+console.log(criarProduto("Notebook", 7000))
+```
 
 ### 💫IIFE
+Immediately Invoked Function Expression - Expressão de Função Imediatamente Invocada é uma maneira de proteger o escopo de sua função e as variáveis dentro dela. Escopo significa de onde ele pode ser acessado.
 
 ```javascript
 (()=>{
-    let texto = "Será executado na hora!";
+    const texto = "Será executado na hora!";
     console.log(texto) // "Será executado na hora!"
     console.log("Foge no escopo mais abrangente")
 })()
@@ -138,14 +212,14 @@ function getPreco(imposto = 0, moeda = 'R$'){
     return `${moeda} ${this.preco * (1 - this.desconto) * (1 + imposto)}`
 }
 
-let produto = {
+const produto = {
     nome: "Notebook",
     preco: 7000,
     desconto: 0.15,
     getPreco
 }
 
-let produto2 = {
+const produto2 = {
     nome: "Carro",
     preco: 47000,
     desconto: 0.2,
@@ -163,6 +237,7 @@ console.log(getPreco.call(produto2, 0.17, '$')) // "$ 43992"
 console.log(getPreco.apply(produto2, [0.17, '$'],)) // "$ 43992"
 ```
 ---
+---
 
 ## Objetos
 
@@ -175,7 +250,7 @@ console.log(getPreco.apply(produto2, [0.17, '$'],)) // "$ 43992"
 ### 🔮Objetos Constantes
 
 ```javascript
-let produto = {
+const produto = {
     nome: "Notebook",
     preco: 7000,
     desconto: 0.15,
@@ -337,8 +412,7 @@ console.log(pessoa) // {nome: "Juliana", idade: 29}
 ```
 
 ### 🔮JSON vs Objeto
-**JSON** - JavaScript Object Notation, parace ser objeto mas na verdade é um formato textual. JSON é um formato de dados, talvez o mais usado hoje no mercado pra interoperabilidade. Interoperabilidade entre sistemas é você ter formato textual genérico que não carrega consigo nada específico de um sistema ou tecnologia. O JSON serve para comunicar sistemas que são feitos em tecnologias completamente diferentes.
-Porque ele é um formato textual é um formato super simples de ser lido e de ser interpretado pelo computador.
+**JSON** - JavaScript Object Notation, parace ser objeto mas na verdade é um *formato textual*. É o mais usado hoje no mercado pra interoperabilidade, isto é você ter formato textual genérico que não carrega consigo nada específico de um sistema ou tecnologia de forma a comunicar sistemas que são feitos em tecnologias completamente diferentes.
 
 #### Principais Diferenças entre JSON e Objeto Literal JavaScript
 **Chaves** – As chaves no JSON devem vir entre aspas duplas. No Objeto Literal, as chaves podem ser strings com aspas simples, duplas, sem aspas, variáveis ou Symbols.
@@ -355,6 +429,15 @@ O **JSON** só aceita os seguintes tipos de valor:
 * outro JSON
 
 ### 🔮Classe
+As Classes são "funções especiais" que provêm uma maneira mais simples e clara de criar objetos e lidar com herança. Você pode criar objetos a partir de uma classe como se fosse um molde.
+
+*Exemplo:*
+
+*Uma classe chamada aluno aluno tem nome e nota. Isso significa que todo aluno dentro daquele sistema vai ter nome e nota, dois atributos. A classe definiu como e quais as características de um aluno e a partir dessa classe você consegue criar objetos. Então cada objeto criado vai ter os dois atributos nome e nota só que para cada objeto ele vai ter um valor independente uns dos outros.*
+
+*Então um aluno vai ser o João com nota 8.3 ao outro. Outra aluna pode ser a Ana com nota 9.4. Outro aluno vai ser o Pedro com nota 7.3 então você tem todos os alunos e todos os objetos respeitando aquele arcabouço naquela estrutura que foi definida na classe. Só que os dados pertencem a cada um dos objetos.*
+
+
 
 ```javascript
 class Lancamento{
@@ -392,9 +475,40 @@ contas.addLacamentos(salario, conta)
 console.log(contas.sumario())
 ```
 
+>Uma diferença importante entre declarações de funções das declarações de classes, é que  declararações de  funções são hoisted e declarações de classes não são. Primeiramente deve declarar sua classe para só então acessá-la, pois do contrário o código a seguir irá lançar uma exceção: ReferenceError:
+
+O **construtor** é um método especial para criar e inicializar um objeto criado a partir de uma classe.
+
+
+**Extends** é a forma de definir que uma determinada classe tem outra classe como protótipo ou que uma determinada função gerada a partir daquela classe terá como protótipo uma outra função que será gerada a partir da classe *avô*.
+
 ```javascript
+class Avo{
+    constructor(sobrenome){
+        this.sobrenome = sobrenome
+    }
+}
+
+class Pai extends Avo{
+    constructor(sobrenome, profissao = "Professor"){
+        super(sobrenome) // chamar a função construtora da superclasse, no caso Avo
+        this.profissao = profissao 
+    }
+}
+
+class Filho extends Pai{
+    constructor(sobrenome){
+        super("Silva") //  passando só um parametro ele assume como padrão a profissão Professor
+    } 
+}
+
+const filho = new Filho
+console.log(filho) // Filho {sobrenome: "Silva", profissao: "Professor"}
 ```
 
+A palavra-chave **super** é usada para acessar o objeto pai de um objeto, em outros casos, é usada para acessar a classe pai de uma classe.
+
+---
 ---
 
 ## Array
@@ -439,6 +553,7 @@ console.log(contas.sumario())
 ```javascript
 ```
 
+---
 ---
 
 ## ES6
