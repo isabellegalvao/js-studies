@@ -513,44 +513,195 @@ A palavra-chave **super** é usada para acessar o objeto pai de um objeto, em ou
 
 ## Array
 
-### 🌵Simulando Array com Objeto
+
+Em Js o Array é um objeto, um objeto especial com características próprias mas não existe o nativo. Ele trabalha de uma forma indexada a partir de um valor inteiro começando com 0. É uma estrutura dinâmica que cresce dinamicamente e diminui dinamicamente diferente de outras linguagens na qual tem uma estrutura estática e tamanho fixo. Os tipos de dados que você pode colocar no Array são os mais variáveis possíveis ou seja, uma estrutura heterogênea em que você pode colocar um inteiro, um boolean, um objeto ou outro Array, não existe restrição. Dito isso a boa prática diz que você deve trabalhar com dados homogêneos dentro de um array.
+
+### 🌵Array: Métodos
 
 ```javascript
+const pilotos = ['Vettel', 'Alonso', 'Raikkonen', 'Massa']
+pilotos.pop() // remove o ultimo item
+console.log(pilotos) // [ 'Vettel', 'Alonso', 'Raikkonen' ]
+
+
+pilotos.push('Sena') // inclui o item por ultimo
+console.log(pilotos) // [ 'Vettel', 'Alonso', 'Raikkonen', 'Sena' ]
+
+
+pilotos.shift() // remove o primeiro item
+console.log(pilotos) // [ 'Alonso', 'Raikkonen', 'Sena' ]
+
+pilotos.unshift('Hamilton') // inclui o item primeiro
+console.log(pilotos) // [ 'Hamilton', 'Alonso', 'Raikkonen', 'Sena' ]
+
+//splice pode add e remover elemntos
+pilotos.splice(2, 0, 'Bottas', 'Massa') // add
+console.log(pilotos) // [ 'Hamilton', 'Alonso', 'Bottas', 'Massa', 'Raikkonen', 'Sena' ]
+
+pilotos.splice(3, 1) // remove
+console.log(pilotos) //[ 'Hamilton', 'Alonso', 'Bottas', 'Raikkonen', 'Sena' ]
+
+const algunsPilotos1 = pilotos.slice(2) // novo array
+console.log(algunsPilotos1) // [ 'Bottas', 'Raikkonen', 'Sena' ]
+
+const algunsPilotos2 = pilotos.slice(1,4) // novo array
+console.log(algunsPilotos2) // [ 'Alonso', 'Bottas', 'Raikkonen' ]
 ```
 
 ### 🌵Foreach
 
 ```javascript
+const aprovados = ['Agatha', 'Aldo', 'Daniel', 'Raquel']
+aprovados.forEach(function(nome, indice, array){
+    console.log(`${indice + 1}) ${nome}`)
+    console.log(array)
+})
+
+aprovados.forEach(nome => console.log(nome))
+
+
+const exibirAprovados = aprovado => console.log(aprovado)
+aprovados.forEach(exibirAprovados)
 ```
 
 ### 🌵Map
+O método **map()** mapeia o array para o outro array do mesmo tamanho só que com os dados transformados
 
 ```javascript
+const nums = [1,2,3,4,5]
+
+let resultado = nums.map(function(e){
+    return e * 2
+})
+
+console.log(resultado) // [ 2, 4, 6, 8, 10 ]
+
+const soma10 = e => e + 10 
+const triplo = e => e * 3
+const paraDinheiro = e => `RS ${parseFloat(e).toFixed(2).replace(".",",")}`
+
+
+console.log(nums.map(soma10).map(triplo).map(paraDinheiro)) //[ 'RS 33,00', 'RS 36,00', 'RS 39,00', 'RS 42,00', 'RS 45,00' ]
+
+// outro exemplo
+
+const carrinho = [
+    '{ "nome": "Borracha", "preco": 3.45 }',
+    '{ "nome": "Carderno", "preco": 13.90 }',
+    '{ "nome": "Kit de Lapis", "preco": 41.22 }',
+    '{ "nome": "Caneta", "preco": 7.50 }',
+]
+
+const obj = json => JSON.parse(json)
+const showPrice = produto => produto.preco
+
+const result =  carrinho.map(obj).map(showPrice)
+console.log(result) // [ 3.45, 13.9, 41.22, 7.5 ]
 ```
 
 ### 🌵Filter
+O método **filter()** cria um novo array com todos os elementos que passaram no teste implementado pela função fornecida.
 
 ```javascript
+const produtos = [
+    { "nome": "Notebook", "preco": 2445, fragil: true },
+    { "nome": "Ipad", "preco": 4199, fragil: true },
+    { "nome": "Copo de Vidro", "preco": 12.22, fragil: true },
+    { "nome": "Copo de Plástico", "preco": 18.22, fragil: false },
+]
+
+console.log(produtos.filter(function(p){
+    return false
+})) // []
+
+const caro = produto => produto.preco >= 500
+const fragil = produto => produto.fragil
+
+console.log(produtos.filter(caro).filter(fragil)) // [ { nome: 'Notebook', preco: 2445, fragil: true }, { nome: 'Ipad', preco: 4199, fragil: true } ]
 ```
 
 ### 🌵Reduce
+O método **reduce()** serve para transformar um array, reduzindo-o ou agregando-o os valores um só, podendo ser esse elemento um array, um número, string, etc
 
 ```javascript
-```
+const alunos = [
+    { "nome": "João", "nota": 7.6, bolsista: false },
+    { "nome": "Maria", "nota": 9.8, bolsista: true },
+    { "nome": "Pedro", "nota": 9.3, bolsista: false },
+    { "nome": "Ana", "nota": 8.7, bolsista: true }
+]
 
-### 🌵Imperativo Vs Declarativo
+const resultado = alunos.map( a => a.nota).reduce(function(acumulador, atual){
+    console.log(acumulador, atual)
+    return acumulador + atual
+}, 0) //valor inicial
 
-```javascript
+console.log(resultado) 
+// 0 7.6
+// 7.6 9.8
+// 17.4 9.3
+// 26.7 8.7
+// 35.4
+
+//1: todos os bolsistas
+const todosBolsistas = (resultado, bolsista) => resultado && bolsista
+console.log(alunos.map( a => a.bolsista).reduce(todosBolsistas)) // false
+
+//2: algum aluno é bolsista
+
+const isBolsista = (resultado, bolsista) => resultado || bolsista
+console.log(alunos.map( a => a.bolsista).reduce(isBolsista)) // true
+
 ```
 
 ### 🌵Concat
 
 ```javascript
+const filhas = ['Julia','Paula']
+const filhos = ['Pedro','João']
+const todos = filhas.concat(filhos)
+console.log(todos) // [ 'Julia', 'Paula', 'Pedro', 'João' ]
+
 ```
 
 ### 🌵FlatMap
 
 ```javascript
+const escola = [{
+    nome: 'Turma 1',
+    alunos: [{
+        nome: 'Marina',
+        nota: 7.8
+    },{
+        nome: 'Joaquim',
+        nota: 6.1
+    }]
+},{
+    nome: 'Turma 2',
+    alunos: [{
+        nome: 'Luana',
+        nota: 8.9
+    },{
+        nome: 'Paula',
+        nota: 10
+    }]
+}]
+
+const getNotaDoAluno = aluno => aluno.nota
+const getNotaPorTurma = turma => turma.alunos.map(getNotaDoAluno)
+
+const notas1 = escola.map(getNotaPorTurma)
+console.log(notas1) //[ [ 7.8, 6.1 ], [ 8.9, 10 ] ]
+
+console.log([].concat([7.8, 6.1 ], [ 8.9, 10 ])) // [ 7.8, 6.1, 8.9, 10 ]
+
+Array.prototype.flatMap = function(callback){
+    return Array.prototype.concat.apply([], this.map(callback))
+}
+
+const notas2 = escola.flatMap(getNotaPorTurma)
+console.log(notas2) // [ 7.8, 6.1, 8.9, 10 ]
+
 ```
 
 ---
