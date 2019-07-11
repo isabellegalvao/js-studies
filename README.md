@@ -1,4 +1,4 @@
-# js-studies
+# Js-Studies
 
 ## Fundamentos
 
