@@ -174,17 +174,7 @@ fs.writeFile(__dirname + '/arquivoGerado.json', JSON.stringify(produto), err => 
 ```javascript
 ```
 
-### ✨Projeto: API com Express #01
-
-```javascript
-```
-
-### ✨Projeto: API com Express #02
-
-```javascript
-```
-
-### ✨Projeto: API com Express #03
+### ✨Projeto: API com Express
 
 ```javascript
 ```
@@ -195,8 +185,25 @@ fs.writeFile(__dirname + '/arquivoGerado.json', JSON.stringify(produto), err => 
 ```
 
 ### ✨Process: Entrada e Saída Padrão
+Entrada padrão é o teclado e a saída padrão é a tela
 
 ```javascript
+//arquivo entradaSaida.js
+
+const anonimo = process.argv.indexOf('-a') !== -1
+
+if(anonimo){
+    process.stdout.write('Fala Anônimo!\n')
+    process.exit()
+}else{
+    process.stdout.write('Informe o seu nome: ') // 
+    process.stdin.on('data', data => {
+        const nome = data.toString().replace('\n', '')
+
+        process.stdout.write(`Fala ${nome}!!\n`)
+        process.exit()
+    })
+}
 ```
 
 ---

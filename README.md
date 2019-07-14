@@ -712,6 +712,18 @@ console.log(notas2) // [ 7.8, 6.1, 8.9, 10 ]
 ### ⚡ Operador Rest/Spread
 
 ```javascript
+//operador ... rest(juntar)/spread(espalhar)
+//usar rest com parâmetro de função
+
+//usar spread com objeto
+const funcionario = { nome: 'Maria', salario: 3234.99 }
+const clone = { ativo: true, ...funcionario }
+console.log(clone) // { ativo: true, nome: 'Maria', salario: 3234.99 }
+
+//usar spread com array
+const grupoA = = [ 'João', 'Pedro', 'Glória']
+const grupoFinal = [ 'Maria', ...grupoA, 'Rafaela']
+console.log(grupoFinal) // [ 'Maria', 'João', 'Pedro', 'Glória', 'Rafaela' ]
 ```
 
 ### ⚡ Tagged Template
@@ -720,18 +732,163 @@ console.log(notas2) // [ 7.8, 6.1, 8.9, 10 ]
 ```
 
 ### ⚡ Map
+O objeto **Map** é um mapa simples de chave/valor. Qualquer valor (objeto e valores primitivos) pode ser usado como uma chave ou um valor.
 
 ```javascript
+const tecnologias = new Map()
+tecnologias.set('react', {framework: false})
+tecnologias.set('angular', {framework: true})
+
+//forma errada de acessar um Map
+console.log(tecnologias.react) //undefined
+
+//forma correta de acessar um Map
+console.log(tecnologias.get('react').framework) // false
+```
+
+A diferença do **Map** é que no caso do objeto a chave é apenas um literal, um String por exemplo, no caso de um **Map** você pode ter a chave como uma função, como um número, um objeto, etc.
+
+O **Map** não veio para substituir o objeto apenas dar mais flexibilidade.
+
+```javascript
+const chavesVariadas = new Map([
+    [function() {}, 'Função'],
+    [{}, 'Objeto'],
+    [123, 'Número']
+])
+
+chavesVariadas.forEach((vl,ch) => {
+    console.log(ch, vl)
+    // [Function] 'Função'
+    // {} 'Objeto'
+    // 123 'Número'
+})
+
+console.log(chavesVariadas.has(123)) //true
+chavesVariadas.delete(123)
+console.log(chavesVariadas.has(123)) //false
+console.log(chavesVariadas.size) // 2
+```
+ Esse objeto não aceita repetição na chave.
+ 
+```javascript
+chavesVariadas.set(123, 'a')
+chavesVariadas.set(123, 'b') // esse sobrescreve o primeiro, ja que o map não aceita chaves variadas
+console.log(chavesVariadas) // Map { [Function] => 'Função', {} => 'Objeto', 123 => 'b' }
 ```
 
 ### ⚡ Set
+O objeto **Set** é uma estrutura de conjunto não indexada e que não aceita repetição. Ele permite que você armazene valores únicos de qualquer tipo, desde valores primitivos a referências a objetos.
+
+Objetos **Set** são coleções de valores nas quais é possível iterar os elementos em ordem de inserção. Um valor pode ocorrer apenas uma vez; ele é único na coleção.
+
 
 ```javascript
+const girlBand = new Set()
+girlBand.add('Beyoncé')
+girlBand.add('Michelle').add('Kelly')
+girlBand.add('LaToya')
+girlBand.add('Beyoncé')
+
+console.log(girlBand) // Set { 'Beyoncé', 'Michelle', 'Kelly' }
+console.log(girlBand.size) // 4
+console.log(girlBand.has('Beyoncé')) // true
+girlBand.delete('LaToya')
+console.log(girlBand.has('LaToya')) // false
+
+const alunos = ['Valentina', 'Enzo','Valentina', 'Enzo']
+const alunosSet = new Set(alunos)
+console.log(alunosSet) // Set { 'Valentina', 'Enzo' } - não aceita reptição
 ```
 
 ### ⚡ For Of
+O loop **for...of** percorre objetos iterativos (incluindo Array, Map, Set, o objeto arguments e assim por diante) e traz como resposta os valores e não o indice.
 
 ```javascript
+for (let letra of "Lovelace") {
+    console.log(letra)
+    // L
+    // o
+    // v
+    // e
+    // l
+    // a
+    // c
+    // e
+}
+```
+
+O loop **for...in** percorre em cima de indices, para pegar o valor será necessário pegar o valor do índice
+
+```javascript
+const assuntosEcma = ['Map', 'Set', 'Promise']
+
+for (let i in assuntosEcma) {
+    console.log(i)
+    // 0
+    // 1
+    // 2
+}
+```
+Já com **for...of**
+
+```javascript
+const assuntosEcma = ['Map', 'Set', 'Promise']
+
+for (let assunto of assuntosEcma) {
+    console.log(assunto)
+    // Map
+    // Set
+    // Promise
+}
+```
+
+```javascript
+ //percorrendo Map
+
+ const assuntosMap = new Map([
+    ['Map', { abordado: true }],
+    ['Set', { abordado: true }],
+    ['Promise', { abordado: false }]
+])
+
+for (let assunto of assuntosMap) {
+    console.log(assunto)
+    // [ 'Map', { abordado: true } ]
+    // [ 'Set', { abordado: true } ]
+    // [ 'Promise', { abordado: false } ]
+}
+
+for (let chave of assuntosMap.keys()) {
+    console.log(chave)
+    // Map
+    // Set
+    // Promise
+}
+
+for (let valor of assuntosMap.values()) {
+    console.log(valor)
+    // { abordado: true }
+    // { abordado: true }
+    // { abordado: false }
+}
+
+
+for (let [ch, vl] of assuntosMap.entries()) {
+    console.log(ch, vl)
+    // Map { abordado: true }
+    // Set { abordado: true }
+    // Promise { abordado: false }
+}
+```
+
+```javascript
+ //percorrendo Set
+ 
+const s = new Set(['a', 'b', 'c'])
+for (let letra of s) {
+    console.log(letra)
+}
 ```
 
 ### ⚡ Promises
