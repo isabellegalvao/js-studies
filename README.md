@@ -1,4 +1,32 @@
-# Js-Studies
+<h1 align="center">
+<br>
+  <img src="book.svg" alt="Front-End Checklist" width="170">
+  <br>
+    <br>
+        Guia de Javascript
+  <br>
+</h1>
+
+<!-- <h4 align="center">Sobre o Guia</h4>
+
+<p align="center">
+    <a href="https://creativecommons.org/publicdomain/zero/1.0/">
+        <img src="https://img.shields.io/badge/license-CC0-green.svg?style=flat-square" alt="CC0">
+    </a>
+</p>
+
+
+Obs -->
+
+## Sumário
+
+1. **[Fundamentos](##Fundamentos)**
+2. **[Funções](##Funções)**
+3. **[Objetos](##Objetos)**
+4. **[Array](##Array)**
+5. **[ES6](##ES6)**
+
+---
 
 ## Fundamentos
 
@@ -891,7 +919,7 @@ for (let letra of s) {
 }
 ```
 
-### ⚡ Promises
+<!-- ### ⚡ Promises
 
 ```javascript
 ```
@@ -909,8 +937,11 @@ for (let letra of s) {
 ### ⚡ Async/Await
 
 ```javascript
-```
+``` -->
 
+---
 
 > Observações: <br />
 > 1 - Defini algumas variáveis como let pra testar no console enquanto fazia essas anotações e cometia erros
+<br>
+> 2 - Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"                 title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"                 title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
