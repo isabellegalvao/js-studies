@@ -20,11 +20,11 @@ Obs -->
 
 ## Sumário
 
-1. **[Fundamentos](##Fundamentos)**
-2. **[Funções](##Funções)**
-3. **[Objetos](##Objetos)**
-4. **[Array](##Array)**
-5. **[ES6](##ES6)**
+1. **[Fundamentos](#fundamentos)**
+2. **[Funções](#funções)**
+3. **[Objetos](#objetos)**
+4. **[Array](#array)**
+5. **[ES6](#es6)**
 
 ---
 
