@@ -124,12 +124,12 @@ console.log(soma(0,0,0)) // 0
 ### 💫This
 A palavra-chave **this** se refere ao objeto ao qual pertence e tem valores diferentes dependendo de onde é usado:
 
-* Em um método, isso se refere ao objeto proprietário.
-* Sozinho, isso se refere ao objeto global.
-* Em uma função, isso se refere ao objeto global.
-* Em uma função, no modo estrito, isso é *undefined*.
-* Em um evento, isso se refere ao elemento que recebeu o evento.
-* Métodos como bind(), call() e apply() podem referir isso a qualquer objeto.
+* Em um método, **this** se refere ao objeto proprietário.
+* Sozinho, **this** se refere ao objeto global.
+* Em uma função, **this** se refere ao objeto global.
+* Em uma função, no modo estrito, **this** é *undefined*.
+* Em um evento, **this** se refere ao elemento que recebeu o evento.
+* Métodos como bind(), call() e apply() podem referir **this** a qualquer objeto.
 
 
 ```javascript
