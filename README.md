@@ -269,11 +269,11 @@ console.log(getPreco.apply(produto2, [0.17, '$'],)) // "$ 43992"
 
 ## Objetos
 
-### 🔮Introdução à OO
+<!-- ### 🔮Introdução à OO
 
 ### 🔮Objeto
 
-### 🔮Estratégias de Criação de Objetos
+### 🔮Estratégias de Criação de Objetos -->
 
 ### 🔮Objetos Constantes
 
