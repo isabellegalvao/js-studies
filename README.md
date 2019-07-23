@@ -173,6 +173,8 @@ dobro = (a) => {
 dobro = a => 2 * a
 ```
 
+> [When (and why) you should use ES6 arrow functions — and when you shouldn’t](https://medium.com/free-code-camp/when-and-why-you-should-use-es6-arrow-functions-and-when-you-shouldnt-3d851d7f0b26)
+
 ### 💫Funções Construtoras
 Funções contrutoras são moldes de objetos que você pode criar a partir dessa função. 
 
