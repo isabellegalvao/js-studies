@@ -26,7 +26,7 @@ Obs -->
 4. **[Array](#array)**
 5. **[ES6](#es6)**
 
----
+-----
 
 ## Fundamentos
 
@@ -104,8 +104,8 @@ let obj = { link: "http://exemplo.com" }
 callAPI(obj)
 ```
 
----
----
+----
+----
 
 ## Funções
 
@@ -266,16 +266,10 @@ console.log(getPreco.apply(produto)) // "R$ 5950"
 console.log(getPreco.call(produto2, 0.17, '$')) // "$ 43992"
 console.log(getPreco.apply(produto2, [0.17, '$'],)) // "$ 43992"
 ```
----
----
+----
+----
 
 ## Objetos
-
-<!-- ### 🔮Introdução à OO
-
-### 🔮Objeto
-
-### 🔮Estratégias de Criação de Objetos -->
 
 ### 🔮Objetos Constantes
 
@@ -538,8 +532,8 @@ console.log(filho) // Filho {sobrenome: "Silva", profissao: "Professor"}
 
 A palavra-chave **super** é usada para acessar o objeto pai de um objeto, em outros casos, é usada para acessar a classe pai de uma classe.
 
----
----
+----
+----
 
 ## Array
 
@@ -595,7 +589,7 @@ aprovados.forEach(exibirAprovados)
 ```
 
 ### 🌵Map
-O método **map()** mapeia o array para o outro array do mesmo tamanho só que com os dados transformados
+O método `map()` mapeia o array para o outro array do mesmo tamanho só que com os dados transformados
 
 ```javascript
 const nums = [1,2,3,4,5]
@@ -630,7 +624,7 @@ console.log(result) // [ 3.45, 13.9, 41.22, 7.5 ]
 ```
 
 ### 🌵Filter
-O método **filter()** cria um novo array com todos os elementos que passaram no teste implementado pela função fornecida.
+O método `filter()` cria um novo array com todos os elementos que passaram no teste implementado pela função fornecida.
 
 ```javascript
 const produtos = [
@@ -651,7 +645,7 @@ console.log(produtos.filter(caro).filter(fragil)) // [ { nome: 'Notebook', preco
 ```
 
 ### 🌵Reduce
-O método **reduce()** serve para transformar um array, reduzindo-o ou agregando-o os valores um só, podendo ser esse elemento um array, um número, string, etc
+O método `reduce()` serve para transformar um array, reduzindo-o ou agregando-o os valores um só, podendo ser esse elemento um array, um número, string, etc
 
 ```javascript
 const alunos = [
@@ -734,8 +728,8 @@ console.log(notas2) // [ 7.8, 6.1, 8.9, 10 ]
 
 ```
 
----
----
+----
+----
 
 ## ES6
 
@@ -941,7 +935,7 @@ for (let letra of s) {
 ```javascript
 ``` -->
 
----
+----
 
 > Observações: <br />
 > 1 - Defini algumas variáveis como let pra testar no console enquanto fazia essas anotações e cometia erros

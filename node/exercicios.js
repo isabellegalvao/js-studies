@@ -1,22 +1,22 @@
-const fs = require('fs')// modulo nativo de file system
+(function(){
+    'use strict'
 
-const caminho = __dirname + '/arquivoGerado.json'
+    function User(name, lastName){
+        this.name = name;
+        this.lastName = lastName;
+        this.anoNascimento = 1996
+    }
 
-//sincrono
-const conteudo = fs.readFileSync(caminho, 'utf-8')
-console.log(conteudo)
+    User.prototype.fullname = function(){
+        return `${this.name} ${this.lastName}`
+    }
 
-//assincrono
-fs.readFile(caminho, 'utf-8', (err, conteudo) => {
-    const produto = JSON.parse(conteudo)
-    console.log(`${produto.nome}`)
-})
+    User.prototype.anoNascimento = 1995
+    User.prototype.age = 22
+    var isa = new User('Isabelle','Galvão')
+    User.prototype.age = 23 //o protótipo pode ser sobrescrito
+    console.log(isa.fullname())
+    console.log(isa.age)
+    console.log(isa.anoNascimento)
 
-const produto = require('./arquivoGerado.json')
-console.log(produto)
-
-
-fs.readdir(__dirname, (err, arquivos) => {
-    console.log('Conteudo da pasta...')
-    console.log(arquivos)
 })
